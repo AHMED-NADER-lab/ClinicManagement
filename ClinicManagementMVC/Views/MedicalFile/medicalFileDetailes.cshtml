@@ -1,0 +1,151 @@
+﻿@model ClinicManagement.Bussiness.ClinicModelMV.MedicalFilesMV
+
+@{
+    ViewBag.Title = "medicalFileDetailes";
+}
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+<h2>Detailes of the Medical File OF the Patient</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FileSerial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileSerial)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.patientname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.patientname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discraption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discraption)
+        </dd>
+
+   
+
+
+    </dl>
+</div>
+
+
+<table class="table" >
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalFileDetalisTBLslist.SingleOrDefault().DoctorTBL.DoctorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalFileDetalisTBLslist.SingleOrDefault().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalFileDetalisTBLslist.SingleOrDefault().Date)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    @foreach (var item in Model.MedicalFileDetalisTBLslist)
+            {
+
+        <tr >
+            <td>
+                <button class="btnDetalhe">x</button>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorTBL.DoctorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+           
+            <td>
+                @Html.ActionLink("Create Medicine", "Createnewmedicine", new { id = item.id })
+                @*@Html.ActionLink("Show Medical", "MedicinList", new { id = item.id })*@
+
+
+            </td>
+        </tr>
+
+                <tr class="itemsRow">
+                    <td colspan="5">
+                        @Html.DisplayNameFor(model => model.MedicalFileDetalisTBLslist.SingleOrDefault().MedicalFilesMedicinTBLs.SingleOrDefault().MedicalTBL.MedicalName)
+                        <table  class="table">
+
+                          
+                            <tbody>
+                                <tr>
+                                    @foreach (var item2 in item.MedicalFilesMedicinTBLs)
+                                    {
+                                        <td>
+
+                                            @Html.DisplayFor(modelItem => item2.MedicalTBL.MedicalName)
+
+                                        </td>
+                                    }
+                                </tr>
+                            <tbody>
+                        </table>
+                      
+                    </td>
+                    </tr>
+
+
+
+
+
+
+                  
+
+
+
+                    }
+      
+<tbody>
+
+</table>
+
+<p>
+   
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+
+
+<style>
+
+     
+   
+       .itemsRow{ display: none; } 
+      
+
+</style>
+<script>
+   
+    $(".btnDetalhe").click(function () { var index = $(this).parent().parent().index(); var detail = $(this).parent().parent().next(); var status = $(detail).css("display"); if (status == "none") $(detail).css("display", "table-row"); else $(detail).css("display", "none") });
+
+</script>

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<ClinicManagement.Bussiness.ClinicModelMV.DoctorAppointmentsMV>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of doctor Appointment</h2>
+@if (TempData["ModelName"] != null)
+{
+
+    <p class="pp" style="display:block"> @TempData["ModelName"]</p>
+
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Day)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.doctorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.spec)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Day)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.doctorName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.spec)
+        </td>
+        <td>
+           
+            <a data-toggle="modal" onclick="openpop('@item.id')" data-target="#myModal">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you want to delete.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-default" id="deleteBtn" href='/Employee/delete/" + id + "'>Delete</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+
+    function openpop(id) {
+
+        $('#deleteBtn').attr("href", '/DoctorAppointment/Delete/' + id)
+    }
+
+     $(document).ready(function () {
+        $(".pp").fadeOut(3000)
+
+    })
+</script>

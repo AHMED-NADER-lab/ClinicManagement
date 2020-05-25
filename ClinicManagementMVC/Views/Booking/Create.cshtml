@@ -1,0 +1,210 @@
+﻿@model ClinicManagement.Bussiness.ClinicModelMV.BookingMV
+
+@{
+    ViewBag.Title = "Create";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>*@
+
+<h2>Create New Booking</h2>
+
+@if (TempData["checkbooking"] != null)
+{
+
+    <p class="pp alert alert-danger" style="display:block"> @TempData["checkbooking"]</p>
+
+}
+
+
+@using (Html.BeginForm("CreateNewBook", "Booking"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>BookingMV</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+      
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("patientid", new SelectList(Model.PatientList, "Id", "Name"), "Select Patient", new { @class = "form-control",@id="ppp" })
+                @Html.ValidationMessageFor(model => model.PatientName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SpecNmae, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Specialtyid", new SelectList(Model.SpecList, "Id", "Name"), "Select Spec", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SpecNmae, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DoctorNmae, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Doctorid", Enumerable.Empty<SelectListItem>(), "Select Doctor", new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.DoctorNmae, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateBooking, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DateBooking, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DateBooking, "", new { @class = "text-danger" })
+                    @Html.ValidationMessage("DateBooking1", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookingPagedata, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BookingPagedata, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BookingPagedata, "", new { @class = "text-danger" })
+                    @Html.ValidationMessage("BookingPagedata1", "", new { @class = "text-danger" })
+                    @Html.ValidationMessage("BookingPagedata2", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+          
+
+    
+
+
+    
+
+        <div class="ui-widget">
+            <label id="tagsssss"> </label>
+
+        </div>
+
+
+        <div class="ui-widget">
+            <label id="day">
+
+            </label>
+
+        </div>
+       
+
+      
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+<script>
+    $("#Specialtyid").change(function () {
+        var selectedCity = $("#Specialtyid").val();
+        fillDistricts(selectedCity);
+    });
+
+    function fillDistricts(selectedCity) {
+
+        var getDistrictsUrl = '@Url.Action("GetDoctorbyspecId", "Booking")';
+        var cityDistricts = $('#Doctorid');
+
+        if (selectedCity != null && selectedCity !== '') {
+            $.ajax({
+                url: getDistrictsUrl,
+                data: { id: selectedCity },
+                cache: false,
+                async: false,
+                type: "POST",
+                success: function (data) {
+                    cityDistricts.removeAttr('disabled');
+                    cityDistricts.val('');
+                    cityDistricts.empty();
+
+                    cityDistricts.append(
+                            $('<option/>', {
+                                value: "",
+                                text: "Select doctor"
+                            })
+                        );
+
+                    $.each(data, function () {
+                        cityDistricts.append(
+                            $('<option/>', {
+                                value: this.id,
+                                text: this.name
+                            })
+                        );
+                    });
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        } else {
+            cityDistricts.val('');
+            cityDistricts.attr("disabled", "disabled");
+        }
+    }
+
+
+    $("#DateBooking").change(function () {
+        var selectedCity2 = $("#Doctorid").val();
+        var date = $("#DateBooking").val();
+        $.ajax({
+            url: "/Booking/getdaydoctor",
+            data: { id: selectedCity2, bookingdate: date },
+            type: "POST",
+            success: function (data) {
+                $('#tagsssss').html(data)
+            },
+           
+        });
+
+
+    })
+
+
+
+
+
+
+    $("#Doctorid").change(function () {
+        $("#day").empty();
+        var selectedCity2 = $("#Doctorid").val();
+        $.ajax({
+            url: "/Booking/getlistdaydoctor",
+            data: { id: selectedCity2,},
+            type: "POST",
+            success: function (data) {
+                $.each(data, function () {
+                    $("#day").append(               
+                            
+                            this.Dayname
+                    );
+                });
+            },
+
+        });
+
+
+    })
+
+
+
+</script>
+}

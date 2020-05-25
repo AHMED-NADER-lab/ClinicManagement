@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <link href="~/Scripts/jquery-ui.min.css" rel="stylesheet" />
+    <style>
+        .navbar-inverse .navbar-nav > li > a {
+            color: white;
+        }
+        .navbar-inverse .navbar-brand {
+             color: white;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          
+            <div class="navbar-header">
+            
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="~/Scripts/Medical-Heart-Logo.jpg" style="width:130px ;position:absolute;left:59px;top:5px"  />
+                @Html.ActionLink("Clinic Management", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+              
+
+              
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="linkact">@Html.ActionLink("Patient", "Index", "Patient")</li>
+                     <li class="linkact">@Html.ActionLink("Doctor", "Index", "Doctor")</li>
+                    <li class="linkact">@Html.ActionLink("MedicalFiles", "Index", "MedicalFile")</li>
+                    @*<li class="linkact">@Html.ActionLink("Doctors Appointment", "Index", "DoctorAppointment")</li>*@
+                    <li class="linkact">@Html.ActionLink("Booking", "Index", "Booking")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+  
+</body>
+</html>

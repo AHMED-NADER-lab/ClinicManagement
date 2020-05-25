@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ClinicManagement.Bussiness.ClinicModelMV.MedicalFilesMV>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List Of Medical File</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.patientname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileSerial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discraption)
+        </th>
+       
+     
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.patientname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileSerial)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discraption)
+        </td>
+     
+       
+        <td>
+           @Html.ActionLink("Create new medical detales", "CreateNewDetalies", new { id = item.id })|
+            @Html.ActionLink("Details files", "medicalFileDetailes", new { id=item.id }) 
+            
+           
+        </td>
+    </tr>
+}
+
+</table>

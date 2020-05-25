@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4DB57615-E147-413E-80F7-BF47A90FDD6A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ClinicManagement.Bussiness</RootNamespace>
+    <AssemblyName>ClinicManagement.Bussiness</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="ClinicBussiness\BookingBussiness.cs" />
+    <Compile Include="ClinicBussiness\DoctorAppointmentBussiness.cs" />
+    <Compile Include="ClinicBussiness\DoctorBussiness.cs" />
+    <Compile Include="ClinicBussiness\LookupBussiness.cs" />
+    <Compile Include="ClinicBussiness\MedicalFileDetalisBussiness.cs" />
+    <Compile Include="ClinicBussiness\MedicalFileMeicinBussiness.cs" />
+    <Compile Include="ClinicBussiness\MidecalFileBussiness.cs" />
+    <Compile Include="ClinicBussiness\PatientBussiness.cs" />
+    <Compile Include="ClinicModelMV\Areamv.cs" />
+    <Compile Include="ClinicModelMV\BookingMV.cs" />
+    <Compile Include="ClinicModelMV\CityMv.cs" />
+    <Compile Include="ClinicModelMV\DoctorAppointmentsMV.cs" />
+    <Compile Include="ClinicModelMV\DoctorMV.cs" />
+    <Compile Include="ClinicModelMV\Lookups.cs" />
+    <Compile Include="ClinicModelMV\MedicalFileDetalisMV.cs" />
+    <Compile Include="ClinicModelMV\MedicalFileMedicinMV.cs" />
+    <Compile Include="ClinicModelMV\MedicalFilesMV.cs" />
+    <Compile Include="ClinicModelMV\MedicalMV.cs" />
+    <Compile Include="ClinicModelMV\PatientMV.cs" />
+    <Compile Include="ClinicModelMV\ResponseMV.cs" />
+    <Compile Include="ClinicModelMV\SpecialtyMV.cs" />
+    <Compile Include="Enums\GenderEnum.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClinicManagement.DAL\ClinicManagement.DAL.csproj">
+      <Project>{6b673ac8-d38b-4708-8082-9207711ec869}</Project>
+      <Name>ClinicManagement.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

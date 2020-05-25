@@ -1,0 +1,101 @@
+﻿@model ClinicManagement.Bussiness.ClinicModelMV.DoctorMV
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DoctorMV</h4>
+    <hr />
+    <dl class="dl-horizontal">
+      
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoctorName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoctorName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+
+     
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cityname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cityname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.areaname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.areaname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.spec)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.spec)
+        </dd>
+
+    </dl>
+   
+    <ul>
+        @foreach (var item in Model.DoctorAppointmentsTBLs)
+        {
+
+
+            for (int i = 0; i < ViewBag.list.Count; i++)
+            {
+                if (item.Day == i)
+                {
+                    <li>@ViewBag.list[i]</li>
+                }
+            }
+
+
+
+
+
+        }
+    </ul>
+
+
+
+</div>
+<p>
+   
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,51 @@
+﻿@model ClinicManagement.Bussiness.ClinicModelMV.MedicalFileDetalisMV
+
+@{
+    ViewBag.Title = "CreateNewDetalies";
+}
+
+<h2>Create New Notic In the medical File of the patient</h2>
+
+
+@using (Html.BeginForm("SubmitDetalies", "MedicalFile"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+
+     
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.doctorname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               @Html.DropDownList("doctorID", new SelectList(Model.doctorlist, "Id", "Name"), "Select doctor", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.doctorname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextArea("Description", new { rows = 10, columns = 40 })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

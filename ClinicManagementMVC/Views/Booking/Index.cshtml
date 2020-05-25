@@ -1,0 +1,154 @@
+﻿@model IEnumerable<ClinicManagement.Bussiness.ClinicModelMV.BookingMV>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Booking list</h2>
+
+@if (TempData["SaveBooking"] != null)
+{
+
+    <p class="pp alert alert-success" style="display:block"> @TempData["SaveBooking"]</p>
+
+}
+@if (TempData["deletemasg"] != null)
+{
+
+    <p class="pp alert alert-danger" style="display:block"> @TempData["deletemasg"]</p>
+
+}
+
+
+@using (Html.BeginForm("search", "Booking"))
+{
+
+    <input data-format="MM/dd/yyyy" name="datefrist" id="datefrist" type="date">
+    <input   data-format="MM/dd/yyyy" name="secandDate" id="secandDate" type="date">
+
+
+    <input type="submit" value="search" class="btn btn-default" />
+}
+
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateBooking)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingPagedata)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishTime)
+            </th>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.PatientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoctorNmae)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecNmae)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type)
+            </th>
+            <th>
+              
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateBooking)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookingPagedata)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinishTime)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.PatientName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoctorNmae)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpecNmae)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.type)
+                </td>
+                <td>
+@if (item.type == "finish              ")
+{
+    <a data-toggle="modal" onclick="openpop('@item.id')" data-target="#myModal">Delete</a>;
+    <h6>this booking is finish</h6>
+}
+else{
+                    @Html.ActionLink("finish", "finishbooking", new { id = item.id }) ;
+    <a data-toggle="modal" onclick="openpop('@item.id')" data-target="#myModal">Delete</a>
+
+}
+                   
+                </td>
+            </tr>
+          
+
+        }
+
+    </table>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you want to delete.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-default" id="deleteBtn" href='/Employee/delete/" + id + "'>Delete</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    function openpop(id) {
+
+        $('#deleteBtn').attr("href", '/Booking/Delete/' + id)
+    }
+
+  
+
+
+
+
+    $(document).ready(function () {
+        $(".pp").fadeOut(4000)
+
+    })
+            </script>
+
+
+
+   

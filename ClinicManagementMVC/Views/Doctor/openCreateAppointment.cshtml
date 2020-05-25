@@ -1,0 +1,48 @@
+﻿@model ClinicManagement.Bussiness.ClinicModelMV.DoctorAppointmentsMV
+
+@{
+    ViewBag.Title = "openCreateAppointment";
+}
+
+<h2>Create Appointment Doctor</h2>
+
+
+@using (Html.BeginForm("CreatenewAppointmentDoctor", "Doctor"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>DoctorAppointmentsMV</h4>
+        <hr />
+        @Html.HiddenFor(model => model.DoctorID)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dayhhhhhhhhhhhhhhh, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.Dayhhhhhhhhhhhhhhh, new SelectList(Enum.GetValues(typeof(DayOfWeek))))
+                @Html.ValidationMessageFor(model => model.Dayhhhhhhhhhhhhhhh, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("Day2", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+  
+
+       
+
+ 
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Details", new { id = Model.DoctorID })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

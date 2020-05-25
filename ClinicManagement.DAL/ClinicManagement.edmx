@@ -1,0 +1,897 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ClinicManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AreaTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityId" Type="int" />
+        </EntityType>
+        <EntityType Name="BookingTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="patientid" Type="int" />
+          <Property Name="Specialtyid" Type="int" />
+          <Property Name="Doctorid" Type="int" />
+          <Property Name="BookingPagedata" Type="datetime" />
+          <Property Name="DateBooking" Type="datetime" />
+          <Property Name="FinishTime" Type="datetime" />
+          <Property Name="type" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="CityTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DoctorAppointmentsTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Day" Type="int" />
+          <Property Name="DoctorID" Type="int" />
+        </EntityType>
+        <EntityType Name="DoctorTBL">
+          <Key>
+            <PropertyRef Name="Doctorid" />
+          </Key>
+          <Property Name="Doctorid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Cityid" Type="int" />
+          <Property Name="Areaid" Type="int" />
+          <Property Name="Specialtyid" Type="int" />
+        </EntityType>
+        <EntityType Name="MedicalFileDetalisTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileID" Type="int" />
+          <Property Name="doctorID" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MedicalFilesMedicinTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fileDetaliesID" Type="int" />
+          <Property Name="medicalID" Type="int" />
+        </EntityType>
+        <EntityType Name="MedicalFileTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileSerial" Type="nvarchar" MaxLength="50" />
+          <Property Name="Discraption" Type="nvarchar(max)" />
+          <Property Name="patientid" Type="int" />
+        </EntityType>
+        <EntityType Name="MedicalTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MedicalName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PatientTBL">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialPatient" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Age" Type="int" />
+          <Property Name="cityid" Type="int" />
+          <Property Name="Areaid" Type="int" />
+          <Property Name="Gender" Type="smallint" />
+        </EntityType>
+        <EntityType Name="SpecialtyTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecialtyName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_AreaTBL_CityTBL">
+          <End Role="CityTBL" Type="Self.CityTBL" Multiplicity="0..1" />
+          <End Role="AreaTBL" Type="Self.AreaTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AreaTBL">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingTBL_DoctorTBL">
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="0..1" />
+          <End Role="BookingTBL" Type="Self.BookingTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTBL">
+              <PropertyRef Name="Doctorid" />
+            </Principal>
+            <Dependent Role="BookingTBL">
+              <PropertyRef Name="Doctorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingTBL_PatientTBL">
+          <End Role="PatientTBL" Type="Self.PatientTBL" Multiplicity="0..1" />
+          <End Role="BookingTBL" Type="Self.BookingTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientTBL">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="BookingTBL">
+              <PropertyRef Name="patientid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingTBL_SpecialtyTBL">
+          <End Role="SpecialtyTBL" Type="Self.SpecialtyTBL" Multiplicity="0..1" />
+          <End Role="BookingTBL" Type="Self.BookingTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecialtyTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BookingTBL">
+              <PropertyRef Name="Specialtyid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorAppointmentsTBL_DoctorTBL">
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="0..1" />
+          <End Role="DoctorAppointmentsTBL" Type="Self.DoctorAppointmentsTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTBL">
+              <PropertyRef Name="Doctorid" />
+            </Principal>
+            <Dependent Role="DoctorAppointmentsTBL">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorTBL_AreaTBL">
+          <End Role="AreaTBL" Type="Self.AreaTBL" Multiplicity="0..1" />
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorTBL">
+              <PropertyRef Name="Areaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorTBL_CityTBL">
+          <End Role="CityTBL" Type="Self.CityTBL" Multiplicity="0..1" />
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorTBL">
+              <PropertyRef Name="Cityid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorTBL_SpecialtyTBL">
+          <End Role="SpecialtyTBL" Type="Self.SpecialtyTBL" Multiplicity="0..1" />
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecialtyTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorTBL">
+              <PropertyRef Name="Specialtyid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFileDetalisTBL_DoctorTBL">
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="0..1" />
+          <End Role="MedicalFileDetalisTBL" Type="Self.MedicalFileDetalisTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTBL">
+              <PropertyRef Name="Doctorid" />
+            </Principal>
+            <Dependent Role="MedicalFileDetalisTBL">
+              <PropertyRef Name="doctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFileDetalisTBL_MedicalFileTBL">
+          <End Role="MedicalFileTBL" Type="Self.MedicalFileTBL" Multiplicity="0..1" />
+          <End Role="MedicalFileDetalisTBL" Type="Self.MedicalFileDetalisTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalFileTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MedicalFileDetalisTBL">
+              <PropertyRef Name="FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL">
+          <End Role="MedicalFileDetalisTBL" Type="Self.MedicalFileDetalisTBL" Multiplicity="0..1" />
+          <End Role="MedicalFilesMedicinTBL" Type="Self.MedicalFilesMedicinTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalFileDetalisTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MedicalFilesMedicinTBL">
+              <PropertyRef Name="fileDetaliesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFilesMedicinTBL_MedicalTBL">
+          <End Role="MedicalTBL" Type="Self.MedicalTBL" Multiplicity="0..1" />
+          <End Role="MedicalFilesMedicinTBL" Type="Self.MedicalFilesMedicinTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MedicalFilesMedicinTBL">
+              <PropertyRef Name="medicalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFileTBL_PatientTBL">
+          <End Role="PatientTBL" Type="Self.PatientTBL" Multiplicity="0..1" />
+          <End Role="MedicalFileTBL" Type="Self.MedicalFileTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientTBL">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="MedicalFileTBL">
+              <PropertyRef Name="patientid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientTBL_AreaTBL">
+          <End Role="AreaTBL" Type="Self.AreaTBL" Multiplicity="0..1" />
+          <End Role="PatientTBL" Type="Self.PatientTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PatientTBL">
+              <PropertyRef Name="Areaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientTBL_CityTBL">
+          <End Role="CityTBL" Type="Self.CityTBL" Multiplicity="0..1" />
+          <End Role="PatientTBL" Type="Self.PatientTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PatientTBL">
+              <PropertyRef Name="cityid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClinicManagementModelStoreContainer">
+          <EntitySet Name="AreaTBL" EntityType="Self.AreaTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingTBL" EntityType="Self.BookingTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CityTBL" EntityType="Self.CityTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorAppointmentsTBL" EntityType="Self.DoctorAppointmentsTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorTBL" EntityType="Self.DoctorTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalFileDetalisTBL" EntityType="Self.MedicalFileDetalisTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalFilesMedicinTBL" EntityType="Self.MedicalFilesMedicinTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalFileTBL" EntityType="Self.MedicalFileTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalTBL" EntityType="Self.MedicalTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientTBL" EntityType="Self.PatientTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpecialtyTBL" EntityType="Self.SpecialtyTBL" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AreaTBL_CityTBL" Association="Self.FK_AreaTBL_CityTBL">
+            <End Role="CityTBL" EntitySet="CityTBL" />
+            <End Role="AreaTBL" EntitySet="AreaTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingTBL_DoctorTBL" Association="Self.FK_BookingTBL_DoctorTBL">
+            <End Role="DoctorTBL" EntitySet="DoctorTBL" />
+            <End Role="BookingTBL" EntitySet="BookingTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingTBL_PatientTBL" Association="Self.FK_BookingTBL_PatientTBL">
+            <End Role="PatientTBL" EntitySet="PatientTBL" />
+            <End Role="BookingTBL" EntitySet="BookingTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingTBL_SpecialtyTBL" Association="Self.FK_BookingTBL_SpecialtyTBL">
+            <End Role="SpecialtyTBL" EntitySet="SpecialtyTBL" />
+            <End Role="BookingTBL" EntitySet="BookingTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorAppointmentsTBL_DoctorTBL" Association="Self.FK_DoctorAppointmentsTBL_DoctorTBL">
+            <End Role="DoctorTBL" EntitySet="DoctorTBL" />
+            <End Role="DoctorAppointmentsTBL" EntitySet="DoctorAppointmentsTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorTBL_AreaTBL" Association="Self.FK_DoctorTBL_AreaTBL">
+            <End Role="AreaTBL" EntitySet="AreaTBL" />
+            <End Role="DoctorTBL" EntitySet="DoctorTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorTBL_CityTBL" Association="Self.FK_DoctorTBL_CityTBL">
+            <End Role="CityTBL" EntitySet="CityTBL" />
+            <End Role="DoctorTBL" EntitySet="DoctorTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorTBL_SpecialtyTBL" Association="Self.FK_DoctorTBL_SpecialtyTBL">
+            <End Role="SpecialtyTBL" EntitySet="SpecialtyTBL" />
+            <End Role="DoctorTBL" EntitySet="DoctorTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFileDetalisTBL_DoctorTBL" Association="Self.FK_MedicalFileDetalisTBL_DoctorTBL">
+            <End Role="DoctorTBL" EntitySet="DoctorTBL" />
+            <End Role="MedicalFileDetalisTBL" EntitySet="MedicalFileDetalisTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFileDetalisTBL_MedicalFileTBL" Association="Self.FK_MedicalFileDetalisTBL_MedicalFileTBL">
+            <End Role="MedicalFileTBL" EntitySet="MedicalFileTBL" />
+            <End Role="MedicalFileDetalisTBL" EntitySet="MedicalFileDetalisTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL" Association="Self.FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL">
+            <End Role="MedicalFileDetalisTBL" EntitySet="MedicalFileDetalisTBL" />
+            <End Role="MedicalFilesMedicinTBL" EntitySet="MedicalFilesMedicinTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFilesMedicinTBL_MedicalTBL" Association="Self.FK_MedicalFilesMedicinTBL_MedicalTBL">
+            <End Role="MedicalTBL" EntitySet="MedicalTBL" />
+            <End Role="MedicalFilesMedicinTBL" EntitySet="MedicalFilesMedicinTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFileTBL_PatientTBL" Association="Self.FK_MedicalFileTBL_PatientTBL">
+            <End Role="PatientTBL" EntitySet="PatientTBL" />
+            <End Role="MedicalFileTBL" EntitySet="MedicalFileTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientTBL_AreaTBL" Association="Self.FK_PatientTBL_AreaTBL">
+            <End Role="AreaTBL" EntitySet="AreaTBL" />
+            <End Role="PatientTBL" EntitySet="PatientTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientTBL_CityTBL" Association="Self.FK_PatientTBL_CityTBL">
+            <End Role="CityTBL" EntitySet="CityTBL" />
+            <End Role="PatientTBL" EntitySet="PatientTBL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClinicManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AreaTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" />
+          <NavigationProperty Name="CityTBL" Relationship="Self.FK_AreaTBL_CityTBL" FromRole="AreaTBL" ToRole="CityTBL" />
+          <NavigationProperty Name="DoctorTBLs" Relationship="Self.FK_DoctorTBL_AreaTBL" FromRole="AreaTBL" ToRole="DoctorTBL" />
+          <NavigationProperty Name="PatientTBLs" Relationship="ClinicManagementModel.FK_PatientTBL_AreaTBL" FromRole="AreaTBL" ToRole="PatientTBL" />
+        </EntityType>
+        <EntityType Name="CityTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AreaTBLs" Relationship="Self.FK_AreaTBL_CityTBL" FromRole="CityTBL" ToRole="AreaTBL" />
+          <NavigationProperty Name="DoctorTBLs" Relationship="Self.FK_DoctorTBL_CityTBL" FromRole="CityTBL" ToRole="DoctorTBL" />
+          <NavigationProperty Name="PatientTBLs" Relationship="ClinicManagementModel.FK_PatientTBL_CityTBL" FromRole="CityTBL" ToRole="PatientTBL" />
+        </EntityType>
+        <EntityType Name="DoctorTBL">
+          <Key>
+            <PropertyRef Name="Doctorid" />
+          </Key>
+          <Property Name="Doctorid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Cityid" Type="Int32" />
+          <Property Name="Areaid" Type="Int32" />
+          <Property Name="Specialtyid" Type="Int32" />
+          <NavigationProperty Name="AreaTBL" Relationship="Self.FK_DoctorTBL_AreaTBL" FromRole="DoctorTBL" ToRole="AreaTBL" />
+          <NavigationProperty Name="CityTBL" Relationship="Self.FK_DoctorTBL_CityTBL" FromRole="DoctorTBL" ToRole="CityTBL" />
+          <NavigationProperty Name="SpecialtyTBL" Relationship="Self.FK_DoctorTBL_SpecialtyTBL" FromRole="DoctorTBL" ToRole="SpecialtyTBL" />
+          <NavigationProperty Name="MedicalFileDetalisTBLs" Relationship="Self.FK_MedicalFileDetalisTBL_DoctorTBL" FromRole="DoctorTBL" ToRole="MedicalFileDetalisTBL" />
+          <NavigationProperty Name="BookingTBLs" Relationship="ClinicManagementModel.FK_BookingTBL_DoctorTBL" FromRole="DoctorTBL" ToRole="BookingTBL" />
+          <NavigationProperty Name="DoctorAppointmentsTBLs" Relationship="ClinicManagementModel.FK_DoctorAppointmentsTBL_DoctorTBL" FromRole="DoctorTBL" ToRole="DoctorAppointmentsTBL" />
+        </EntityType>
+        <EntityType Name="MedicalFileDetalisTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileID" Type="Int32" />
+          <Property Name="doctorID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DoctorTBL" Relationship="Self.FK_MedicalFileDetalisTBL_DoctorTBL" FromRole="MedicalFileDetalisTBL" ToRole="DoctorTBL" />
+          <NavigationProperty Name="MedicalFilesMedicinTBLs" Relationship="Self.FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL" FromRole="MedicalFileDetalisTBL" ToRole="MedicalFilesMedicinTBL" />
+          <NavigationProperty Name="MedicalFileTBL" Relationship="ClinicManagementModel.FK_MedicalFileDetalisTBL_MedicalFileTBL" FromRole="MedicalFileDetalisTBL" ToRole="MedicalFileTBL" />
+        </EntityType>
+        <EntityType Name="MedicalFilesMedicinTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fileDetaliesID" Type="Int32" />
+          <Property Name="medicalID" Type="Int32" />
+          <NavigationProperty Name="MedicalFileDetalisTBL" Relationship="Self.FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL" FromRole="MedicalFilesMedicinTBL" ToRole="MedicalFileDetalisTBL" />
+          <NavigationProperty Name="MedicalTBL" Relationship="Self.FK_MedicalFilesMedicinTBL_MedicalTBL" FromRole="MedicalFilesMedicinTBL" ToRole="MedicalTBL" />
+        </EntityType>
+        <EntityType Name="MedicalTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MedicalName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MedicalFilesMedicinTBLs" Relationship="Self.FK_MedicalFilesMedicinTBL_MedicalTBL" FromRole="MedicalTBL" ToRole="MedicalFilesMedicinTBL" />
+        </EntityType>
+        <EntityType Name="SpecialtyTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecialtyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DoctorTBLs" Relationship="Self.FK_DoctorTBL_SpecialtyTBL" FromRole="SpecialtyTBL" ToRole="DoctorTBL" />
+          <NavigationProperty Name="BookingTBLs" Relationship="ClinicManagementModel.FK_BookingTBL_SpecialtyTBL" FromRole="SpecialtyTBL" ToRole="BookingTBL" />
+        </EntityType>
+        <Association Name="FK_AreaTBL_CityTBL">
+          <End Role="CityTBL" Type="Self.CityTBL" Multiplicity="0..1" />
+          <End Role="AreaTBL" Type="Self.AreaTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AreaTBL">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorTBL_AreaTBL">
+          <End Role="AreaTBL" Type="Self.AreaTBL" Multiplicity="0..1" />
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorTBL">
+              <PropertyRef Name="Areaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorTBL_CityTBL">
+          <End Role="CityTBL" Type="Self.CityTBL" Multiplicity="0..1" />
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorTBL">
+              <PropertyRef Name="Cityid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorTBL_SpecialtyTBL">
+          <End Role="SpecialtyTBL" Type="Self.SpecialtyTBL" Multiplicity="0..1" />
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecialtyTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DoctorTBL">
+              <PropertyRef Name="Specialtyid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFileDetalisTBL_DoctorTBL">
+          <End Role="DoctorTBL" Type="Self.DoctorTBL" Multiplicity="0..1" />
+          <End Role="MedicalFileDetalisTBL" Type="Self.MedicalFileDetalisTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTBL">
+              <PropertyRef Name="Doctorid" />
+            </Principal>
+            <Dependent Role="MedicalFileDetalisTBL">
+              <PropertyRef Name="doctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL">
+          <End Role="MedicalFileDetalisTBL" Type="Self.MedicalFileDetalisTBL" Multiplicity="0..1" />
+          <End Role="MedicalFilesMedicinTBL" Type="Self.MedicalFilesMedicinTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalFileDetalisTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MedicalFilesMedicinTBL">
+              <PropertyRef Name="fileDetaliesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFilesMedicinTBL_MedicalTBL">
+          <End Role="MedicalTBL" Type="Self.MedicalTBL" Multiplicity="0..1" />
+          <End Role="MedicalFilesMedicinTBL" Type="Self.MedicalFilesMedicinTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MedicalFilesMedicinTBL">
+              <PropertyRef Name="medicalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClinicManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AreaTBLs" EntityType="Self.AreaTBL" />
+          <EntitySet Name="CityTBLs" EntityType="Self.CityTBL" />
+          <EntitySet Name="DoctorTBLs" EntityType="Self.DoctorTBL" />
+          <EntitySet Name="MedicalFileDetalisTBLs" EntityType="Self.MedicalFileDetalisTBL" />
+          <EntitySet Name="MedicalFilesMedicinTBLs" EntityType="Self.MedicalFilesMedicinTBL" />
+          <EntitySet Name="MedicalTBLs" EntityType="Self.MedicalTBL" />
+          <EntitySet Name="SpecialtyTBLs" EntityType="Self.SpecialtyTBL" />
+          <AssociationSet Name="FK_AreaTBL_CityTBL" Association="Self.FK_AreaTBL_CityTBL">
+            <End Role="CityTBL" EntitySet="CityTBLs" />
+            <End Role="AreaTBL" EntitySet="AreaTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorTBL_AreaTBL" Association="Self.FK_DoctorTBL_AreaTBL">
+            <End Role="AreaTBL" EntitySet="AreaTBLs" />
+            <End Role="DoctorTBL" EntitySet="DoctorTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorTBL_CityTBL" Association="Self.FK_DoctorTBL_CityTBL">
+            <End Role="CityTBL" EntitySet="CityTBLs" />
+            <End Role="DoctorTBL" EntitySet="DoctorTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorTBL_SpecialtyTBL" Association="Self.FK_DoctorTBL_SpecialtyTBL">
+            <End Role="SpecialtyTBL" EntitySet="SpecialtyTBLs" />
+            <End Role="DoctorTBL" EntitySet="DoctorTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFileDetalisTBL_DoctorTBL" Association="Self.FK_MedicalFileDetalisTBL_DoctorTBL">
+            <End Role="DoctorTBL" EntitySet="DoctorTBLs" />
+            <End Role="MedicalFileDetalisTBL" EntitySet="MedicalFileDetalisTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL" Association="Self.FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL">
+            <End Role="MedicalFileDetalisTBL" EntitySet="MedicalFileDetalisTBLs" />
+            <End Role="MedicalFilesMedicinTBL" EntitySet="MedicalFilesMedicinTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFilesMedicinTBL_MedicalTBL" Association="Self.FK_MedicalFilesMedicinTBL_MedicalTBL">
+            <End Role="MedicalTBL" EntitySet="MedicalTBLs" />
+            <End Role="MedicalFilesMedicinTBL" EntitySet="MedicalFilesMedicinTBLs" />
+          </AssociationSet>
+          <EntitySet Name="MedicalFileTBLs" EntityType="ClinicManagementModel.MedicalFileTBL" />
+          <AssociationSet Name="FK_MedicalFileDetalisTBL_MedicalFileTBL" Association="ClinicManagementModel.FK_MedicalFileDetalisTBL_MedicalFileTBL">
+            <End Role="MedicalFileTBL" EntitySet="MedicalFileTBLs" />
+            <End Role="MedicalFileDetalisTBL" EntitySet="MedicalFileDetalisTBLs" />
+          </AssociationSet>
+          <EntitySet Name="BookingTBLs" EntityType="ClinicManagementModel.BookingTBL" />
+          <AssociationSet Name="FK_BookingTBL_DoctorTBL" Association="ClinicManagementModel.FK_BookingTBL_DoctorTBL">
+            <End Role="DoctorTBL" EntitySet="DoctorTBLs" />
+            <End Role="BookingTBL" EntitySet="BookingTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingTBL_SpecialtyTBL" Association="ClinicManagementModel.FK_BookingTBL_SpecialtyTBL">
+            <End Role="SpecialtyTBL" EntitySet="SpecialtyTBLs" />
+            <End Role="BookingTBL" EntitySet="BookingTBLs" />
+          </AssociationSet>
+          <EntitySet Name="DoctorAppointmentsTBLs" EntityType="ClinicManagementModel.DoctorAppointmentsTBL" />
+          <AssociationSet Name="FK_DoctorAppointmentsTBL_DoctorTBL" Association="ClinicManagementModel.FK_DoctorAppointmentsTBL_DoctorTBL">
+            <End Role="DoctorTBL" EntitySet="DoctorTBLs" />
+            <End Role="DoctorAppointmentsTBL" EntitySet="DoctorAppointmentsTBLs" />
+          </AssociationSet>
+          <EntitySet Name="PatientTBLs" EntityType="ClinicManagementModel.PatientTBL" />
+          <AssociationSet Name="FK_PatientTBL_AreaTBL" Association="ClinicManagementModel.FK_PatientTBL_AreaTBL">
+            <End Role="AreaTBL" EntitySet="AreaTBLs" />
+            <End Role="PatientTBL" EntitySet="PatientTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingTBL_PatientTBL" Association="ClinicManagementModel.FK_BookingTBL_PatientTBL">
+            <End Role="PatientTBL" EntitySet="PatientTBLs" />
+            <End Role="BookingTBL" EntitySet="BookingTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientTBL_CityTBL" Association="ClinicManagementModel.FK_PatientTBL_CityTBL">
+            <End Role="CityTBL" EntitySet="CityTBLs" />
+            <End Role="PatientTBL" EntitySet="PatientTBLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalFileTBL_PatientTBL" Association="ClinicManagementModel.FK_MedicalFileTBL_PatientTBL">
+            <End Role="PatientTBL" EntitySet="PatientTBLs" />
+            <End Role="MedicalFileTBL" EntitySet="MedicalFileTBLs" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="MedicalFileTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileSerial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discraption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="patientid" Type="Int32" />
+          <NavigationProperty Name="MedicalFileDetalisTBLs" Relationship="ClinicManagementModel.FK_MedicalFileDetalisTBL_MedicalFileTBL" FromRole="MedicalFileTBL" ToRole="MedicalFileDetalisTBL" />
+          <NavigationProperty Name="PatientTBL" Relationship="ClinicManagementModel.FK_MedicalFileTBL_PatientTBL" FromRole="MedicalFileTBL" ToRole="PatientTBL" />
+        </EntityType>
+        <Association Name="FK_MedicalFileDetalisTBL_MedicalFileTBL">
+          <End Type="ClinicManagementModel.MedicalFileTBL" Role="MedicalFileTBL" Multiplicity="0..1" />
+          <End Type="ClinicManagementModel.MedicalFileDetalisTBL" Role="MedicalFileDetalisTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalFileTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="MedicalFileDetalisTBL">
+              <PropertyRef Name="FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BookingTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="patientid" Type="Int32" />
+          <Property Name="Specialtyid" Type="Int32" />
+          <Property Name="Doctorid" Type="Int32" />
+          <Property Name="BookingPagedata" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DoctorTBL" Relationship="ClinicManagementModel.FK_BookingTBL_DoctorTBL" FromRole="BookingTBL" ToRole="DoctorTBL" />
+          <NavigationProperty Name="SpecialtyTBL" Relationship="ClinicManagementModel.FK_BookingTBL_SpecialtyTBL" FromRole="BookingTBL" ToRole="SpecialtyTBL" />
+          <Property Name="DateBooking" Type="DateTime" Precision="3" />
+          <Property Name="FinishTime" Type="DateTime" Precision="3" />
+          <Property Name="type" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="PatientTBL" Relationship="ClinicManagementModel.FK_BookingTBL_PatientTBL" FromRole="BookingTBL" ToRole="PatientTBL" />
+        </EntityType>
+        <Association Name="FK_BookingTBL_DoctorTBL">
+          <End Type="ClinicManagementModel.DoctorTBL" Role="DoctorTBL" Multiplicity="0..1" />
+          <End Type="ClinicManagementModel.BookingTBL" Role="BookingTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTBL">
+              <PropertyRef Name="Doctorid" />
+            </Principal>
+            <Dependent Role="BookingTBL">
+              <PropertyRef Name="Doctorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingTBL_SpecialtyTBL">
+          <End Type="ClinicManagementModel.SpecialtyTBL" Role="SpecialtyTBL" Multiplicity="0..1" />
+          <End Type="ClinicManagementModel.BookingTBL" Role="BookingTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecialtyTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="BookingTBL">
+              <PropertyRef Name="Specialtyid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DoctorAppointmentsTBL">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Day" Type="Int32" />
+          <Property Name="DoctorID" Type="Int32" />
+          <NavigationProperty Name="DoctorTBL" Relationship="ClinicManagementModel.FK_DoctorAppointmentsTBL_DoctorTBL" FromRole="DoctorAppointmentsTBL" ToRole="DoctorTBL" />
+        </EntityType>
+        <Association Name="FK_DoctorAppointmentsTBL_DoctorTBL">
+          <End Type="ClinicManagementModel.DoctorTBL" Role="DoctorTBL" Multiplicity="0..1" />
+          <End Type="ClinicManagementModel.DoctorAppointmentsTBL" Role="DoctorAppointmentsTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorTBL">
+              <PropertyRef Name="Doctorid" />
+            </Principal>
+            <Dependent Role="DoctorAppointmentsTBL">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PatientTBL">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialPatient" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="cityid" Type="Int32" />
+          <Property Name="Areaid" Type="Int32" />
+          <Property Name="Gender" Type="Int16" />
+          <NavigationProperty Name="AreaTBL" Relationship="ClinicManagementModel.FK_PatientTBL_AreaTBL" FromRole="PatientTBL" ToRole="AreaTBL" />
+          <NavigationProperty Name="BookingTBLs" Relationship="ClinicManagementModel.FK_BookingTBL_PatientTBL" FromRole="PatientTBL" ToRole="BookingTBL" />
+          <NavigationProperty Name="CityTBL" Relationship="ClinicManagementModel.FK_PatientTBL_CityTBL" FromRole="PatientTBL" ToRole="CityTBL" />
+          <NavigationProperty Name="MedicalFileTBLs" Relationship="ClinicManagementModel.FK_MedicalFileTBL_PatientTBL" FromRole="PatientTBL" ToRole="MedicalFileTBL" />
+        </EntityType>
+        <Association Name="FK_PatientTBL_AreaTBL">
+          <End Type="ClinicManagementModel.AreaTBL" Role="AreaTBL" Multiplicity="0..1" />
+          <End Type="ClinicManagementModel.PatientTBL" Role="PatientTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PatientTBL">
+              <PropertyRef Name="Areaid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingTBL_PatientTBL">
+          <End Type="ClinicManagementModel.PatientTBL" Role="PatientTBL" Multiplicity="0..1" />
+          <End Type="ClinicManagementModel.BookingTBL" Role="BookingTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientTBL">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="BookingTBL">
+              <PropertyRef Name="patientid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientTBL_CityTBL">
+          <End Type="ClinicManagementModel.CityTBL" Role="CityTBL" Multiplicity="0..1" />
+          <End Type="ClinicManagementModel.PatientTBL" Role="PatientTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CityTBL">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="PatientTBL">
+              <PropertyRef Name="cityid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalFileTBL_PatientTBL">
+          <End Type="ClinicManagementModel.PatientTBL" Role="PatientTBL" Multiplicity="0..1" />
+          <End Type="ClinicManagementModel.MedicalFileTBL" Role="MedicalFileTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientTBL">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="MedicalFileTBL">
+              <PropertyRef Name="patientid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClinicManagementModelStoreContainer" CdmEntityContainer="ClinicManagementEntities">
+          <EntitySetMapping Name="AreaTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.AreaTBL">
+              <MappingFragment StoreEntitySet="AreaTBL">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CityTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.CityTBL">
+              <MappingFragment StoreEntitySet="CityTBL">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.DoctorTBL">
+              <MappingFragment StoreEntitySet="DoctorTBL">
+                <ScalarProperty Name="Doctorid" ColumnName="Doctorid" />
+                <ScalarProperty Name="DoctorName" ColumnName="DoctorName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Cityid" ColumnName="Cityid" />
+                <ScalarProperty Name="Areaid" ColumnName="Areaid" />
+                <ScalarProperty Name="Specialtyid" ColumnName="Specialtyid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalFileDetalisTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.MedicalFileDetalisTBL">
+              <MappingFragment StoreEntitySet="MedicalFileDetalisTBL">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="FileID" ColumnName="FileID" />
+                <ScalarProperty Name="doctorID" ColumnName="doctorID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalFilesMedicinTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.MedicalFilesMedicinTBL">
+              <MappingFragment StoreEntitySet="MedicalFilesMedicinTBL">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fileDetaliesID" ColumnName="fileDetaliesID" />
+                <ScalarProperty Name="medicalID" ColumnName="medicalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.MedicalTBL">
+              <MappingFragment StoreEntitySet="MedicalTBL">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="MedicalName" ColumnName="MedicalName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpecialtyTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.SpecialtyTBL">
+              <MappingFragment StoreEntitySet="SpecialtyTBL">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SpecialtyName" ColumnName="SpecialtyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalFileTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.MedicalFileTBL">
+              <MappingFragment StoreEntitySet="MedicalFileTBL">
+                <ScalarProperty Name="patientid" ColumnName="patientid" />
+                <ScalarProperty Name="Discraption" ColumnName="Discraption" />
+                <ScalarProperty Name="FileSerial" ColumnName="FileSerial" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.BookingTBL">
+              <MappingFragment StoreEntitySet="BookingTBL">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
+                <ScalarProperty Name="DateBooking" ColumnName="DateBooking" />
+                <ScalarProperty Name="BookingPagedata" ColumnName="BookingPagedata" />
+                <ScalarProperty Name="Doctorid" ColumnName="Doctorid" />
+                <ScalarProperty Name="Specialtyid" ColumnName="Specialtyid" />
+                <ScalarProperty Name="patientid" ColumnName="patientid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorAppointmentsTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.DoctorAppointmentsTBL">
+              <MappingFragment StoreEntitySet="DoctorAppointmentsTBL">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientTBLs">
+            <EntityTypeMapping TypeName="ClinicManagementModel.PatientTBL">
+              <MappingFragment StoreEntitySet="PatientTBL">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Areaid" ColumnName="Areaid" />
+                <ScalarProperty Name="cityid" ColumnName="cityid" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="SerialPatient" ColumnName="SerialPatient" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

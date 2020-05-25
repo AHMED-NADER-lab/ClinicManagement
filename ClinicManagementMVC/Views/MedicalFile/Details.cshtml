@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ClinicManagement.Bussiness.ClinicModelMV.MedicalFileDetalisMV>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+       
+       
+        <th>
+            @Html.DisplayNameFor(model => model.doctorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.doctorname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.ActionLink("Create Medicine", "Createnewmedicine", new { id=item.id }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })*@
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ClinicManagement.Bussiness.ClinicModelMV.MedicalFileMedicinMV>
+
+@{
+    ViewBag.Title = "MedicinList";
+}
+
+<h2>Medicin List</h2>
+
+
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.MedicalName)
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+    
+        <td>
+            @Html.DisplayFor(modelItem => item.MedicalName)
+        </td>
+        
+    </tr>
+}
+
+</table>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="464e3b84625c434c8f62eae3b2903304" Name="Diagram1">
+        <EntityTypeShape EntityType="ClinicManagementModel.AreaTBL" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicManagementModel.CityTBL" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicManagementModel.DoctorTBL" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicManagementModel.MedicalFileDetalisTBL" Width="1.5" PointX="12.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicManagementModel.MedicalFilesMedicinTBL" Width="1.5" PointX="15" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicManagementModel.MedicalTBL" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ClinicManagementModel.SpecialtyTBL" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="ClinicManagementModel.FK_AreaTBL_CityTBL" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicManagementModel.FK_DoctorTBL_AreaTBL" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicManagementModel.FK_DoctorTBL_CityTBL" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicManagementModel.FK_DoctorTBL_SpecialtyTBL" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicManagementModel.FK_MedicalFileDetalisTBL_DoctorTBL" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicManagementModel.FK_MedicalFilesMedicinTBL_MedicalFileDetalisTBL" ManuallyRouted="false" />
+        <AssociationConnector Association="ClinicManagementModel.FK_MedicalFilesMedicinTBL_MedicalTBL" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ClinicManagementModel.MedicalFileTBL" Width="1.5" PointX="10.5" PointY="7.5" />
+        <AssociationConnector Association="ClinicManagementModel.FK_MedicalFileDetalisTBL_MedicalFileTBL" />
+        <EntityTypeShape EntityType="ClinicManagementModel.BookingTBL" Width="1.5" PointX="10.5" PointY="3.25" />
+        <AssociationConnector Association="ClinicManagementModel.FK_BookingTBL_DoctorTBL" />
+        <AssociationConnector Association="ClinicManagementModel.FK_BookingTBL_SpecialtyTBL" />
+        <EntityTypeShape EntityType="ClinicManagementModel.DoctorAppointmentsTBL" Width="1.5" PointX="7.5" PointY="10.75" />
+        <AssociationConnector Association="ClinicManagementModel.FK_DoctorAppointmentsTBL_DoctorTBL" />
+        <EntityTypeShape EntityType="ClinicManagementModel.PatientTBL" Width="1.5" PointX="8.25" PointY="5.875" />
+        <AssociationConnector Association="ClinicManagementModel.FK_PatientTBL_AreaTBL" />
+        <AssociationConnector Association="ClinicManagementModel.FK_BookingTBL_PatientTBL" />
+        <AssociationConnector Association="ClinicManagementModel.FK_PatientTBL_CityTBL" />
+        <AssociationConnector Association="ClinicManagementModel.FK_MedicalFileTBL_PatientTBL" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
